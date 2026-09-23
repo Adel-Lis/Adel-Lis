@@ -1,82 +1,42 @@
-<!-- Adel Lis, GitHub profile. Version: Quant terminal. Assets live in /assets/quant. -->
+<!-- Adel Lis, GitHub profile. Version: Quant terminal. Main version: README.md (poster). -->
 
-<div align="center">
-
-<img src="assets/quant/hero.svg" width="100%" alt="Adel Lis">
-
-<img src="https://readme-typing-svg.demolab.com?font=Space%20Grotesk&weight=700&size=24&duration=2600&pause=900&color=5CF2B1&center=true&vCenter=true&width=760&height=56&lines=Quant%20developer%20in%20the%20making;High-performance%20computing;Software%20engineer;Profile%20first%2C%20optimise%20second;Latency%20is%20a%20feature;Cache%20misses%20keep%20me%20up%20at%20night;Never%20stop%20coding" alt="Rotating titles">
-
-<p align="center">
-  <a href="mailto:adel.lis.work@gmail.com"><img src="assets/quant/btn-mail.svg" width="48%" alt="Email: adel.lis.work@gmail.com"></a>
-  <a href="https://www.linkedin.com/in/adel-lis-6887532a8/"><img src="assets/quant/btn-in.svg" width="48%" alt="LinkedIn"></a>
-</p>
-
-</div>
-
-<img src="assets/quant/h-about.svg" width="100%" alt="About">
-
-```text
-ADEL LIS   <DES>                                          LEIDEN, NL
-────────────────────────────────────────────────────────────────────
-EDUCATION   MSc Computational Science ...... UvA × VU Amsterdam
-            BSc Artificial Intelligence .... VU Amsterdam
-            Exchange, Computer Science ..... Univ. of Queensland
-EDGE        gradient-free optimisation, quantised deep learning,
-            high-performance computing, agentic LLM systems
-FOCUS       C++ low-level systems programming
-TARGET      quant dev  /  high-frequency trading  /  SWE
-```
-
-<img src="assets/quant/h-stack.svg" width="100%" alt="Stack">
-
-<img src="assets/quant/stack.svg" width="100%" alt="Python, C++ 17/20, SQL; JavaScript, React, Java, Shell">
-
-<img src="assets/quant/h-shipped.svg" width="100%" alt="Top projects">
-
-<a href="https://github.com/Adel-Lis/eggroll-detector-tuning"><img src="assets/quant/p-eggroll.svg" width="100%" alt="eggroll-detector-tuning"></a>
-
-<a href="https://github.com/Adel-Lis/RouteGate"><img src="assets/quant/p-routegate.svg" width="100%" alt="RouteGate"></a>
-
-<a href="https://github.com/Adel-Lis/stem-agent"><img src="assets/quant/p-stem.svg" width="100%" alt="stem-agent"></a>
-
-<img src="assets/quant/h-building.svg" width="100%" alt="In progress">
-
-<a href="https://github.com/Adel-Lis/multi_agent_market_simulator"><img src="assets/quant/wip.svg" width="100%" alt="multi_agent_market_simulator (in progress)"></a>
-
-<img src="assets/quant/h-activity.svg" width="100%" alt="Activity">
-
-<img src="https://raw.githubusercontent.com/Adel-Lis/Adel-Lis/output/skyline-quant.svg" width="100%" alt="3D contribution skyline">
-
-<img src="https://raw.githubusercontent.com/Adel-Lis/Adel-Lis/output/snake-quant.svg" width="100%" alt="Contribution snake">
-
-<img src="assets/quant/h-journey.svg" width="100%" alt="Journey">
-
-<div align="center">
-
-<img src="assets/quant/globe.gif" width="440" alt="Rotating globe: Moldova, Italy, Netherlands, Australia">
-
-`MD` → `IT` → `NL` → `AU` → `NL`   ·   next stop: pending order
-
-</div>
-
-<img src="assets/quant/h-offclock.svg" width="100%" alt="Off the clock">
-
-<img src="assets/quant/caffeine.svg" width="100%" alt="Coffee vs tea">
-
-<div align="center">
-
-🍜 &nbsp;Always opening a position in a new cuisine &nbsp;&nbsp;·&nbsp;&nbsp; 🎬 &nbsp;Long on good movies &nbsp;&nbsp;·&nbsp;&nbsp; ⚙️ &nbsp;Studying: C++ low-level systems programming
-
-</div>
-
-<!-- CLOSING SECTION (CV + talk-with-me demo). To enable: replace YOUR_CV_LINK and
-     YOUR_TALK_WITH_ME_LINK below, then delete the two lines that contain only the comment markers. -->
+<div>
+<img src="assets/quant/hero.svg" width="100%" align="top" alt="Adel Lis">
+<img src="https://readme-typing-svg.demolab.com?font=Space%20Grotesk&weight=700&size=24&duration=2600&pause=900&color=5CF2B1&background=04120D&center=true&vCenter=true&width=1000&height=64&lines=Quant%20developer%20in%20the%20making;High-performance%20computing;Software%20engineer;Profile%20first%2C%20optimise%20second;Latency%20is%20a%20feature;Cache%20misses%20keep%20me%20up%20at%20night;Never%20stop%20coding;Coffee%20long%20before%20noon%2C%20tea%20after" width="100%" align="top" alt="Rotating titles">
+<a href="mailto:adel.lis.work@gmail.com"><img src="assets/quant/c-mail.svg" width="50%" align="top" alt="Email adel.lis.work@gmail.com"></a><a href="https://www.linkedin.com/in/adel-lis-6887532a8/"><img src="assets/quant/c-in.svg" width="50%" align="top" alt="LinkedIn"></a>
+<img src="assets/quant/edge-to-quiet.svg" width="100%" align="top" alt="">
+<img src="assets/quant/switch-head.svg" width="100%" align="top" alt="Other personalities">
+<a href="https://github.com/Adel-Lis/Adel-Lis/blob/main/README.md"><img src="assets/quant/switch-poster.svg" width="33.33%" align="top" alt="poster"></a><a href="https://github.com/Adel-Lis/Adel-Lis/blob/main/README.lab.md"><img src="assets/quant/switch-lab.svg" width="33.33%" align="top" alt="lab"></a><a href="https://github.com/Adel-Lis/Adel-Lis/blob/main/README.matrix.md"><img src="assets/quant/switch-matrix.svg" width="33.33%" align="top" alt="matrix"></a>
+<img src="assets/quant/edge-from-quiet.svg" width="100%" align="top" alt="">
+<img src="assets/quant/spacer.svg" width="100%" align="top" alt="">
+<img src="assets/quant/h-about.svg" width="100%" align="top" alt="About">
+<img src="assets/quant/about.svg" width="100%" align="top" alt="About: education, focus, coffee and tea, food, movies">
+<img src="assets/quant/spacer.svg" width="100%" align="top" alt="">
+<img src="assets/quant/h-stack.svg" width="100%" align="top" alt="Stack">
+<img src="assets/quant/stack.svg" width="100%" align="top" alt="Languages and tools">
+<img src="assets/quant/edge-to-ai.svg" width="100%" align="top" alt="">
+<img src="assets/quant/h-ai.svg" width="100%" align="top" alt="AI stack">
+<img src="assets/quant/ai-stack.svg" width="100%" align="top" alt="AI stack">
+<img src="assets/quant/edge-from-ai.svg" width="100%" align="top" alt="">
+<img src="assets/quant/spacer.svg" width="100%" align="top" alt="">
+<img src="assets/quant/h-building.svg" width="100%" align="top" alt="In progress">
+<a href="https://github.com/Adel-Lis/multi_agent_market_simulator"><img src="assets/quant/wip.svg" width="100%" align="top" alt="multi_agent_market_simulator, in progress"></a>
+<img src="assets/quant/spacer.svg" width="100%" align="top" alt="">
+<img src="assets/quant/h-shipped.svg" width="100%" align="top" alt="Shipped">
+<a href="https://github.com/Adel-Lis/eggroll-detector-tuning"><img src="assets/quant/p-eggroll.svg" width="100%" align="top" alt="eggroll-detector-tuning"></a>
+<a href="https://github.com/Adel-Lis/RouteGate"><img src="assets/quant/p-routegate.svg" width="100%" align="top" alt="RouteGate"></a>
+<a href="https://github.com/Adel-Lis/stem-agent"><img src="assets/quant/p-stem.svg" width="100%" align="top" alt="stem-agent"></a>
+<img src="assets/quant/spacer.svg" width="100%" align="top" alt="">
+<img src="assets/quant/h-activity.svg" width="100%" align="top" alt="Activity">
+<img src="https://raw.githubusercontent.com/Adel-Lis/Adel-Lis/output/activity-quant.svg" width="100%" align="top" alt="3D contribution city">
+<img src="assets/quant/spacer.svg" width="100%" align="top" alt="">
+<img src="assets/quant/h-journey.svg" width="100%" align="top" alt="Journey">
+<img src="assets/quant/road.svg" width="100%" align="top" alt="Map: route and countries visited">
+<!-- CLOSING SECTION (CV + talk-with-me demo). To enable: replace YOUR_CV_LINK and YOUR_TALK_WITH_ME_LINK,
+     then delete the two lines that contain only the comment markers. -->
 <!--
-<img src="assets/quant/h-links.svg" width="100%" alt="CV and live demo">
-
-<p align="center">
-<a href="YOUR_CV_LINK"><img src="assets/quant/btn-cv.svg" width="48%" alt="Download CV"></a>
-<a href="YOUR_TALK_WITH_ME_LINK"><img src="assets/quant/btn-talk.svg" width="48%" alt="Talk with me, live"></a>
-</p>
-
+<img src="assets/quant/h-links.svg" width="100%" align="top" alt="Contact">
+<a href="YOUR_CV_LINK"><img src="assets/quant/btn-cv.svg" width="50%" align="top" alt="Download CV"></a><a href="YOUR_TALK_WITH_ME_LINK"><img src="assets/quant/btn-talk.svg" width="50%" align="top" alt="Talk with me, live"></a>
 -->
+<img src="assets/quant/footer.svg" width="100%" align="top" alt="Adel Lis">
+</div>

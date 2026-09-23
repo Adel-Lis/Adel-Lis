@@ -145,10 +145,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 MONTHS = "JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC".split()
 
 
-def _fonts():
+def _fonts(files):
     import base64
     out = ""
-    for alias, fn in (("A", "anton"), ("M", "spacemono-r"), ("MB", "spacemono-b"), ("SI", "instserif-i")):
+    for alias, fn in files:
         p = os.path.join(HERE, "..", "assets", "fonts", fn + ".woff2")
         if os.path.exists(p):
             b64 = base64.b64encode(open(p, "rb").read()).decode()
@@ -156,25 +156,49 @@ def _fonts():
     return out
 
 
-def render_poster(weeks):
-    """Poster version: 3D contribution city with month labels and the peak day highlighted."""
-    BG, CREAM, GOLD, EM, HOT, DIM, LINE = "#063D2C", "#F3F0E4", "#F2C14E", "#1FE5A0", "#9DF7D3", "#7FB9A2", "#1C6B50"
-    lv = ["#0D5641", "#138A63", "#1FE5A0", "#9DF7D3", "#9DF7D3"]
+CITY = {
+    "poster": dict(bg="#063D2C", floor="#0A4A36", empty="#0B5139", lv=["#138A63", "#1FE5A0", "#9DF7D3", "#9DF7D3"],
+                   peak="#F2C14E", hot="#9DF7D3", dim="#7FB9A2", cap_font="SI", mono="M",
+                   fonts=[("M", "spacemono-r"), ("MB", "spacemono-b"), ("SI", "instserif-i")],
+                   cap="one tower per day, taller means more activity", peak_word="PEAK DAY", fmt=str.upper,
+                   total="{n} contributions in the last 12 months", legend="gold tower = busiest day of the year"),
+    "quant": dict(bg="#04120D", floor="#0A2219", empty="#0C2A1D", lv=["#0F5A3C", "#139A64", "#19C37D", "#5CF2B1"],
+                  peak="#F0B429", hot="#5CF2B1", dim="#3E7A5E", cap_font="M", mono="M",
+                  fonts=[("M", "plexmono-r"), ("MB", "plexmono-sb")],
+                  cap="INTRADAY VOLUME  ·  one tower per session, height = contributions", peak_word="PEAK SESSION", fmt=str.upper,
+                  total="VOL 12M  {n}", legend="amber = highest-volume session"),
+    "lab": dict(bg="#062019", floor="#0B2E24", empty="#0E3429", lv=["#1F6B52", "#2FA078", "#3FD39A", "#8EF0C6"],
+                peak="#D9B45B", hot="#8EF0C6", dim="#6F9E8B", cap_font="SI", mono="M",
+                fonts=[("M", "plexmono-r"), ("SI", "instserif-i")],
+                cap="one tower per day; height grows with the square root of contributions", peak_word="maximum", fmt=lambda x: x,
+                total="n = {n} contributions over 12 months", legend="gold: the maximum, shared across all figures"),
+    "matrix": dict(bg="#010805", floor="#03130C", empty="#05190F", lv=["#0A4F31", "#07915A", "#00E68A", "#9CFFD0"],
+                   peak="#D6FFEC", hot="#00E68A", dim="#1F7A50", cap_font="M", mono="M",
+                   fonts=[("M", "sharetech")],
+                   cap="# one tower per day, height = commits", peak_word="max()", fmt=str.lower,
+                   total="$ git rev-list --count  ->  {n}", legend="# white tower = argmax(day)"),
+}
+
+
+def render_city(weeks, theme):
+    """Themed 3D contribution city with month labels and the peak day highlighted."""
+    c = CITY[theme]
     W, H = 1000, 440
     wx, wy, dx, dy = 15.4, 3.1, -9.0, 7.6
     ox, oy = 128, 130
     days = [(wi, d[0], d[1], d[2]) for wi, w in enumerate(weeks) for d in w]
-    maxc = max([c for *_, c, _ in days] + [1])
+    maxc = max([k[2] for k in days] + [1])
     peak = max(days, key=lambda k: k[2])
-    total = sum(c for *_, c, _ in days)
+    total = sum(k[2] for k in days)
     f = lambda ps: " ".join(f"{x:.1f},{y:.1f}" for x, y in ps)
     out = []
     corners = [(0, 0), (len(weeks), 0), (len(weeks), 7), (0, 7)]
-    out.append(f'<polygon points="{f([(ox + a*wx + b*dx, oy + a*wy + b*dy) for a, b in corners])}" fill="#0A4A36"/>')
-    for wi, d, c, dt in sorted(days, key=lambda k: (k[0] + k[1], k[0])):
-        is_peak = (wi, d) == (peak[0], peak[1]) and c > 0
-        col = GOLD if is_peak else (lv[level(c, maxc)] if c else "#0B5139")
-        h = 3 if c == 0 else 8 + 96 * math.sqrt(c / maxc)
+    out.append(f'<polygon points="{f([(ox + a*wx + b*dx, oy + a*wy + b*dy) for a, b in corners])}" fill="{c["floor"]}"/>')
+    px_ = py_ = None
+    for wi, d, cnt, dt in sorted(days, key=lambda k: (k[0] + k[1], k[0])):
+        is_peak = (wi, d) == (peak[0], peak[1]) and cnt > 0
+        col = c["peak"] if is_peak else (c["lv"][level(cnt, maxc) - 1] if cnt else c["empty"])
+        h = 3 if cnt == 0 else 8 + 96 * math.sqrt(cnt / maxc)
         bx, by, s_ = ox + wi * wx + d * dx, oy + wi * wy + d * dy, 0.86
         p0, p1 = (bx, by), (bx + wx * s_, by + wy * s_)
         p2, p3 = (bx + wx * s_ + dx * s_, by + wy * s_ + dy * s_), (bx + dx * s_, by + dy * s_)
@@ -185,41 +209,33 @@ def render_poster(weeks):
                    f'<polygon points="{f(top)}" fill="{col}"/></g>')
         if is_peak:
             px_, py_ = top[0][0] + 4, top[0][1] - 10
-    # month labels along the front edge of the city, and ticks on the graph
-    gx0, gx1, gy0, gy1 = 70, 930, 520, 700
-    xw = lambda wi: gx0 + (gx1 - gx0) * wi / max(1, len(weeks) - 1)
     prev, labels = None, []
     for wi, w in enumerate(weeks):
-        m = date.fromisoformat(w[0][2]).month
-        if m != prev:
-            y2 = date.fromisoformat(w[0][2]).year % 100
-            labels.append((wi, f"{MONTHS[m-1]} {y2:02d}"))
-            prev = m
-    labels = labels[1:] if len(labels) > 1 and labels[1][0] - labels[0][0] < 3 else labels
+        dd = date.fromisoformat(w[0][2])
+        if dd.month != prev:
+            labels.append((wi, c["fmt"](f"{MONTHS[dd.month-1]} {dd.year % 100:02d}")))
+            prev = dd.month
+    if len(labels) > 1 and labels[1][0] - labels[0][0] < 3:
+        labels = labels[1:]
     for wi, lab in labels:
         x, y = ox + wi * wx + 7 * dx, oy + wi * wy + 7 * dy
-        out.append(f'<line x1="{x:.1f}" y1="{y+2:.1f}" x2="{x-6:.1f}" y2="{y+10:.1f}" stroke="{DIM}"/>'
-                   f'<text x="{x-8:.1f}" y="{y+22:.1f}" text-anchor="middle" class="m" font-size="10.5" fill="{DIM}">{lab}</text>')
-    # peak callout in the city
-    pdate = date.fromisoformat(peak[3])
-    plabel = f"PEAK DAY  {MONTHS[pdate.month-1]} {pdate.day}, {pdate.year}  ·  {peak[2]}"
-    if peak[2] > 0:
-        out.append(f'<line x1="{px_:.1f}" y1="{py_:.1f}" x2="{px_+40:.1f}" y2="{py_-34:.1f}" stroke="{GOLD}"/>'
-                   f'<text x="{px_+44:.1f}" y="{py_-38:.1f}" class="mb" font-size="12" fill="{GOLD}">{plabel}</text>')
-    style = (_fonts() + ".a{font-family:'A',sans-serif}.m{font-family:'M',monospace}.mb{font-family:'MB',monospace}.si{font-family:'SI',serif}"
+        out.append(f'<line x1="{x:.1f}" y1="{y+2:.1f}" x2="{x-6:.1f}" y2="{y+10:.1f}" stroke="{c["dim"]}"/>'
+                   f'<text x="{x-8:.1f}" y="{y+22:.1f}" text-anchor="middle" class="m" font-size="10.5" fill="{c["dim"]}">{lab}</text>')
+    if px_ is not None:
+        pd = date.fromisoformat(peak[3])
+        plabel = c["fmt"](f"{c['peak_word']}  {MONTHS[pd.month-1]} {pd.day}, {pd.year}  ·  {peak[2]}")
+        out.append(f'<line x1="{px_:.1f}" y1="{py_:.1f}" x2="{px_+40:.1f}" y2="{py_-34:.1f}" stroke="{c["peak"]}"/>'
+                   f'<text x="{px_+44:.1f}" y="{py_-38:.1f}" class="m" font-size="12" fill="{c["peak"]}">{plabel}</text>')
+    style = (_fonts(c["fonts"]) + ".m{font-family:'M',monospace}.si{font-family:'SI',serif}"
              ".b{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);animation:up 1.1s cubic-bezier(.2,.9,.3,1.2) forwards}"
-             "@keyframes up{to{transform:scaleY(1)}}"
-             ".draw{stroke-dashoffset:1;animation:dr 2.6s .8s ease-out forwards}@keyframes dr{to{stroke-dashoffset:0}}"
-             ".fade{opacity:0;animation:fd .8s 2.8s forwards}@keyframes fd{to{opacity:1}}"
-             "@media (prefers-reduced-motion:reduce){.b,.draw,.fade{animation:none;transform:none;opacity:1;stroke-dashoffset:0}}")
-    cap = (f'<text x="34" y="30" class="si" font-size="19" fill="{HOT}">one tower per day, taller means more activity</text>'
-           f'<text x="{W-34}" y="{H-22}" text-anchor="end" class="mb" font-size="11" fill="{GOLD}">gold tower = busiest day of the year</text>'
-           f'<text x="34" y="{H-22}" class="mb" font-size="11" fill="{DIM}">{total} contributions in the last 12 months</text>')
+             "@keyframes up{to{transform:scaleY(1)}}@media (prefers-reduced-motion:reduce){.b{animation:none;transform:none}}")
+    capcls = "si" if c["cap_font"] == "SI" else "m"
+    cap = (f'<text x="34" y="30" class="{capcls}" font-size="{19 if capcls == "si" else 13}" fill="{c["hot"]}">{c["cap"]}</text>'
+           f'<text x="{W-34}" y="{H-22}" text-anchor="end" class="m" font-size="11" fill="{c["peak"]}">{c["legend"]}</text>'
+           f'<text x="34" y="{H-22}" class="m" font-size="11" fill="{c["dim"]}">{c["total"].format(n=total)}</text>')
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" '
-            f'aria-label="3D contribution city and cumulative commits"><style>text{{white-space:pre}}{style}</style>'
-            f'<defs><linearGradient id="ar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{EM}" stop-opacity=".45"/>'
-            f'<stop offset="1" stop-color="{EM}" stop-opacity="0"/></linearGradient></defs>'
-            f'<rect width="{W}" height="{H}" fill="{BG}"/>{cap}{"".join(out)}</svg>')
+            f'aria-label="3D contribution city"><style>text{{white-space:pre}}{style}</style>'
+            f'<rect width="{W}" height="{H}" fill="{c["bg"]}"/>{cap}{"".join(out)}</svg>')
 
 
 def wrap_snake(path, theme):
@@ -253,10 +269,7 @@ if __name__ == "__main__":
     else:
         weeks = demo() if a.demo else fetch(a.user, os.environ.get("GITHUB_TOKEN"))
         print(f"{len(weeks)} weeks, {sum(day[1] for w in weeks for day in w)} contributions")
-        for th in THEMES:
-            p = os.path.join(a.out, f"skyline-{th}.svg")
-            open(p, "w").write(render(weeks, th))
+        for th in CITY:
+            p = os.path.join(a.out, f"activity-{th}.svg")
+            open(p, "w").write(render_city(weeks, th))
             print("wrote", p)
-        p = os.path.join(a.out, "activity-poster.svg")
-        open(p, "w").write(render_poster(weeks))
-        print("wrote", p)
