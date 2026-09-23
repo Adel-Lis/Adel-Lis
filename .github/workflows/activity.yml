@@ -17,7 +17,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Snake (one palette per theme)
         uses: Platane/snk@v3
@@ -29,7 +29,7 @@ jobs:
             dist/snake-matrix.svg?color_snake=#9CFFD0&color_dots=#062014,#0A4F31,#07915A,#00E68A,#9CFFD0
             dist/snake-poster.svg?color_snake=#F2C14E&color_dots=#0D5641,#138A63,#1FE5A0,#9DF7D3,#F3F0E4
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
