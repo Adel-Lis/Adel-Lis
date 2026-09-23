@@ -29,6 +29,9 @@ jobs:
             dist/snake-matrix.svg?color_snake=#9CFFD0&color_dots=#062014,#0A4F31,#07915A,#00E68A,#9CFFD0
             dist/snake-poster.svg?color_snake=#F2C14E&color_dots=#0D5641,#138A63,#1FE5A0,#9DF7D3,#F3F0E4
 
+      - name: Take ownership of dist (the snake action writes it as root)
+        run: sudo chown -R "$(id -u):$(id -g)" dist
+
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
