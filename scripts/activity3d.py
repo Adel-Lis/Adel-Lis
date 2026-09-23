@@ -157,12 +157,12 @@ def _fonts():
 
 
 def render_poster(weeks):
-    """Poster version: labelled 3D city on top, cumulative climb below, sharing months + the peak day."""
+    """Poster version: 3D contribution city with month labels and the peak day highlighted."""
     BG, CREAM, GOLD, EM, HOT, DIM, LINE = "#063D2C", "#F3F0E4", "#F2C14E", "#1FE5A0", "#9DF7D3", "#7FB9A2", "#1C6B50"
     lv = ["#0D5641", "#138A63", "#1FE5A0", "#9DF7D3", "#9DF7D3"]
-    W, H = 1000, 770
+    W, H = 1000, 440
     wx, wy, dx, dy = 15.4, 3.1, -9.0, 7.6
-    ox, oy = 128, 150
+    ox, oy = 128, 130
     days = [(wi, d[0], d[1], d[2]) for wi, w in enumerate(weeks) for d in w]
     maxc = max([c for *_, c, _ in days] + [1])
     peak = max(days, key=lambda k: k[2])
@@ -200,40 +200,21 @@ def render_poster(weeks):
         x, y = ox + wi * wx + 7 * dx, oy + wi * wy + 7 * dy
         out.append(f'<line x1="{x:.1f}" y1="{y+2:.1f}" x2="{x-6:.1f}" y2="{y+10:.1f}" stroke="{DIM}"/>'
                    f'<text x="{x-8:.1f}" y="{y+22:.1f}" text-anchor="middle" class="m" font-size="10.5" fill="{DIM}">{lab}</text>')
-        out.append(f'<line x1="{xw(wi):.1f}" x2="{xw(wi):.1f}" y1="{gy0}" y2="{gy1}" stroke="{LINE}" stroke-dasharray="2 4"/>'
-                   f'<text x="{xw(wi)+4:.1f}" y="{gy1+18}" class="m" font-size="10.5" fill="{DIM}">{lab}</text>')
     # peak callout in the city
     pdate = date.fromisoformat(peak[3])
     plabel = f"PEAK DAY  {MONTHS[pdate.month-1]} {pdate.day}, {pdate.year}  ·  {peak[2]}"
     if peak[2] > 0:
         out.append(f'<line x1="{px_:.1f}" y1="{py_:.1f}" x2="{px_+40:.1f}" y2="{py_-34:.1f}" stroke="{GOLD}"/>'
                    f'<text x="{px_+44:.1f}" y="{py_-38:.1f}" class="mb" font-size="12" fill="{GOLD}">{plabel}</text>')
-    # cumulative climb
-    cum, run = [], 0
-    for w in weeks:
-        run += sum(d[1] for d in w)
-        cum.append(run)
-    top_ = max(cum[-1], 1)
-    yv = lambda v: gy1 - (gy1 - gy0) * v / top_
-    line = "M" + " L".join(f"{xw(i):.1f},{yv(v):.1f}" for i, v in enumerate(cum))
-    area = line + f" L{xw(len(cum)-1):.1f},{gy1} L{gx0},{gy1} Z"
-    out.append(f'<line x1="{gx0}" x2="{gx1}" y1="{gy1}" y2="{gy1}" stroke="{LINE}"/>')
-    out.append(f'<path d="{area}" fill="url(#ar)" class="fade"/>')
-    out.append(f'<path d="{line}" fill="none" stroke="{HOT}" stroke-width="3" pathLength="1" stroke-dasharray="1" class="draw"/>')
-    pw = peak[0]
-    out.append(f'<line x1="{xw(pw):.1f}" x2="{xw(pw):.1f}" y1="{gy0-6}" y2="{gy1}" stroke="{GOLD}" stroke-dasharray="3 3" class="fade"/>'
-               f'<circle cx="{xw(pw):.1f}" cy="{yv(cum[pw]):.1f}" r="6" fill="{GOLD}" class="fade"/>')
-    out.append(f'<circle cx="{xw(len(cum)-1):.1f}" cy="{yv(cum[-1]):.1f}" r="6" fill="{CREAM}" class="fade"/>'
-               f'<text x="{gx1}" y="{yv(cum[-1])-16:.1f}" text-anchor="end" class="a fade" font-size="34" fill="{CREAM}">{total} CONTRIBUTIONS</text>')
     style = (_fonts() + ".a{font-family:'A',sans-serif}.m{font-family:'M',monospace}.mb{font-family:'MB',monospace}.si{font-family:'SI',serif}"
              ".b{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);animation:up 1.1s cubic-bezier(.2,.9,.3,1.2) forwards}"
              "@keyframes up{to{transform:scaleY(1)}}"
              ".draw{stroke-dashoffset:1;animation:dr 2.6s .8s ease-out forwards}@keyframes dr{to{stroke-dashoffset:0}}"
              ".fade{opacity:0;animation:fd .8s 2.8s forwards}@keyframes fd{to{opacity:1}}"
              "@media (prefers-reduced-motion:reduce){.b,.draw,.fade{animation:none;transform:none;opacity:1;stroke-dashoffset:0}}")
-    cap = (f'<text x="34" y="36" class="si" font-size="22" fill="{HOT}">the city: one tower per day, taller means more commits</text>'
-           f'<text x="34" y="488" class="si" font-size="22" fill="{HOT}">the climb: the same activity, added up week by week</text>'
-           f'<text x="{W/2}" y="{H-22}" text-anchor="middle" class="mb" font-size="12" fill="{GOLD}">gold marks the same peak day in both views</text>')
+    cap = (f'<text x="34" y="30" class="si" font-size="19" fill="{HOT}">one tower per day, taller means more activity</text>'
+           f'<text x="{W-34}" y="{H-22}" text-anchor="end" class="mb" font-size="11" fill="{GOLD}">gold tower = busiest day of the year</text>'
+           f'<text x="34" y="{H-22}" class="mb" font-size="11" fill="{DIM}">{total} contributions in the last 12 months</text>')
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" '
             f'aria-label="3D contribution city and cumulative commits"><style>text{{white-space:pre}}{style}</style>'
             f'<defs><linearGradient id="ar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{EM}" stop-opacity=".45"/>'
