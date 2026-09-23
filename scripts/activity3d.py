@@ -22,15 +22,54 @@ QUERY = """query($login:String!){user(login:$login){contributionsCollection{cont
 weeks{contributionDays{date contributionCount weekday}}}}}}"""
 
 
-def fetch(user, token):
+def fetch_graphql(user, token):
     req = urllib.request.Request(
         "https://api.github.com/graphql",
         data=json.dumps({"query": QUERY, "variables": {"login": user}}).encode(),
-        headers={"Authorization": f"bearer {token}", "Content-Type": "application/json"})
-    with urllib.request.urlopen(req) as r:
+        headers={"Authorization": f"bearer {token}", "Content-Type": "application/json",
+                 "User-Agent": "activity3d"})
+    with urllib.request.urlopen(req, timeout=30) as r:
         d = json.load(r)
+    if d.get("errors") or not (d.get("data") or {}).get("user"):
+        raise RuntimeError(f"GraphQL returned: {d.get('errors') or d}")
     weeks = d["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
     return [[(day["weekday"], day["contributionCount"]) for day in w["contributionDays"]] for w in weeks]
+
+
+def fetch_public(user):
+    """Public contribution calendar HTML: no token needed."""
+    req = urllib.request.Request(f"https://github.com/users/{user}/contributions",
+                                 headers={"User-Agent": "Mozilla/5.0 activity3d"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        page = r.read().decode("utf-8", "replace")
+    days = {}
+    for m in re.finditer(r'data-date="(\d{4}-\d\d-\d\d)"\s+id="([^"]+)"[^>]*data-level="(\d)"', page):
+        days[m.group(2)] = [m.group(1), int(m.group(3))]
+    for m in re.finditer(r'<tool-tip[^>]*for="([^"]+)"[^>]*>([^<]*)</tool-tip>', page):
+        if m.group(1) in days:
+            n = re.match(r"\s*(\d+)", m.group(2))
+            days[m.group(1)].append(int(n.group(1)) if n else 0)
+    if not days:
+        raise RuntimeError("could not parse the public contribution calendar")
+    weeks, cur, last = [], [], None
+    for dt, lvl, *cnt in sorted(days.values()):
+        dd = date.fromisoformat(dt)
+        wd = (dd.weekday() + 1) % 7  # Sunday = 0, like GitHub
+        if cur and wd == 0:
+            weeks.append(cur); cur = []
+        cur.append((wd, cnt[0] if cnt else lvl * 3))
+    if cur:
+        weeks.append(cur)
+    return weeks
+
+
+def fetch(user, token):
+    if token:
+        try:
+            return fetch_graphql(user, token)
+        except Exception as e:
+            print(f"::warning::GraphQL fetch failed ({e}); using the public calendar instead")
+    return fetch_public(user)
 
 
 def demo():
@@ -130,7 +169,8 @@ if __name__ == "__main__":
                 wrap_snake(p, th)
                 print("wrapped", p)
     else:
-        weeks = demo() if a.demo else fetch(a.user, os.environ["GITHUB_TOKEN"])
+        weeks = demo() if a.demo else fetch(a.user, os.environ.get("GITHUB_TOKEN"))
+        print(f"{len(weeks)} weeks, {sum(c for w in weeks for _, c in w)} contributions")
         for th in THEMES:
             p = os.path.join(a.out, f"skyline-{th}.svg")
             open(p, "w").write(render(weeks, th))
