@@ -9,8 +9,8 @@
 <g clip-path="url(#cw)"><rect x="34" y="12" width="932" height="284" fill="#0A4A36" stroke="#F2C14E"/>
 <rect x="34" y="12" width="932" height="44" fill="#F2C14E"/>
 <g class="mq"><text x="0" y="45" class="a k" font-size="30">NOW BUILDING  ✦  NOW BUILDING  ✦  NOW BUILDING  ✦  NOW BUILDING  ✦  NOW BUILDING  ✦  NOW BUILDING  ✦  NOW BUILDING  ✦  NOW BUILDING  ✦  NOW BUILDING  ✦  NOW BUILDING  ✦  </text></g>
-<text x="56" y="130" class="a t" font-size="46">MULTI_AGENT_MARKET_SIMULATOR</text>
-<text x="58" y="170" class="si h" font-size="23">A multi-agent continuous-trading market, written in C++20.</text>
+<text x="56" y="130" class="a t" font-size="40">MULTI_AGENT_MARKET_SIMULATOR</text>
+<text x="58" y="170" class="si h" font-size="20">A multi-agent continuous-trading market, written in C++20.</text>
 <text x="58" y="210" class="m t" font-size="13.5">Autonomous trading agents send orders to a continuously matching exchange.</text><text x="58" y="232" class="m t" font-size="13.5">A playground for the engineering behind low-latency trading systems.</text>
 <text x="58" y="270" class="mb e" font-size="12">C++20  /  Multi-agent  /  Market microstructure  /  Systems</text>
 <circle cx="850" cy="176" r="96" fill="#F2C14E"/>

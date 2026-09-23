@@ -17,11 +17,11 @@
 <line x1="0" x2="1000" y1="392" y2="392" stroke="#9DF7D3" stroke-width="2"/>
 <text x="34" y="38" class="m t" font-size="13">Leiden, NL   52.16°N 4.49°E</text>
 <text x="966" y="38" text-anchor="end" class="m t" font-size="13">profile, season 2026</text>
-<g class="sh"><text x="30" y="236" class="a" font-size="180" fill="none" stroke="#F2C14E" stroke-width="2">ADEL</text></g>
-<text x="30" y="236" class="a t" font-size="180">ADEL</text>
-<g class="sh"><text x="30" y="410" class="a" font-size="180" fill="none" stroke="#F2C14E" stroke-width="2">LIS</text></g>
-<text x="30" y="410" class="a t" font-size="180">LIS</text>
-<text x="258" y="312" class="si t" font-size="36">a computational scientist,</text>
-<text x="258" y="352" class="si g" font-size="36">in the making.</text>
+<g class="sh"><text x="30" y="206" class="a" font-size="148" fill="none" stroke="#F2C14E" stroke-width="2">ADEL</text></g>
+<text x="30" y="206" class="a t" font-size="148">ADEL</text>
+<g class="sh"><text x="30" y="360" class="a" font-size="148" fill="none" stroke="#F2C14E" stroke-width="2">LIS</text></g>
+<text x="30" y="360" class="a t" font-size="148">LIS</text>
+<text x="212" y="304" class="si t" font-size="31">a computational scientist,</text>
+<text x="212" y="340" class="si g" font-size="31">in the making.</text>
 <text x="34" y="538" class="mb t" font-size="14">MSc Computational Science, UvA × VU Amsterdam</text>
 <text x="966" y="538" text-anchor="end" class="mb e" font-size="14">quant dev / hpc / swe</text></g></svg>

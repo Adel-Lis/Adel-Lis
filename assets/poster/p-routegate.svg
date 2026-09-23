@@ -8,13 +8,13 @@
 <g class="mq"><text x="0" y="296" class="a" font-size="120" fill="#F3F0E4" fill-opacity=".045">ROUTEGATE   ROUTEGATE   ROUTEGATE   ROUTEGATE   ROUTEGATE   ROUTEGATE   </text></g>
 <rect x="58" y="40" width="348" height="26" rx="13" fill="#F2C14E"/>
 <text x="68" y="58" class="mb k" font-size="12">Cloud Computing, University of Queensland</text>
-<text x="56" y="136" class="a t" font-size="56">ROUTEGATE</text>
-<text x="58" y="172" class="si h" font-size="23">Flight planning and weather assessment for air-control staff.</text>
+<text x="56" y="136" class="a t" font-size="46">ROUTEGATE</text>
+<text x="58" y="172" class="si h" font-size="20">Flight planning and weather assessment for air-control staff.</text>
 <text x="58" y="210" class="m t" font-size="12.5">Full-stack web app with a REST API, containerised with Docker.</text><text x="58" y="232" class="m t" font-size="12.5">Orchestrated on Google Kubernetes Engine behind a CI/CD pipeline.</text><text x="58" y="254" class="m t" font-size="12.5">One script stands up the whole cluster; one script tears it down.</text>
 <text x="58" y="280" class="mb e" font-size="12">GCP  /  Kubernetes  /  Docker  /  REST  /  CI/CD</text>
 <rect x="680" y="12" width="286" height="294" fill="#F2C14E"/>
 <text x="708" y="62" class="mb k" font-size="12">THE BIG IDEA</text>
-<text x="706" y="126" class="a k" font-size="35">ONE SCRIPT.</text>
-<text x="706" y="168" class="a k" font-size="35">A WHOLE CLOUD.</text>
+<text x="706" y="126" class="a k" font-size="31">ONE SCRIPT.</text>
+<text x="706" y="168" class="a k" font-size="31">A WHOLE CLOUD.</text>
 <text x="708" y="208" class="si k" font-size="17">stands up, and tears down, a</text><text x="708" y="230" class="si k" font-size="17">full GKE stack in one command</text>
 <text x="708" y="280" class="mb k" font-size="13">open the repo →</text></g></svg>

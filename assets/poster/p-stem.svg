@@ -8,13 +8,13 @@
 <g class="mq"><text x="0" y="296" class="a" font-size="120" fill="#F3F0E4" fill-opacity=".045">STEM AGENT   STEM AGENT   STEM AGENT   STEM AGENT   STEM AGENT   STEM AGENT   </text></g>
 <rect x="58" y="40" width="277" height="26" rx="13" fill="#F2C14E"/>
 <text x="68" y="58" class="mb k" font-size="12">Experimental, built from scratch</text>
-<text x="56" y="136" class="a t" font-size="56">STEM AGENT</text>
-<text x="58" y="172" class="si h" font-size="23">Grows a generic stem into a domain-specialist LLM agent.</text>
+<text x="56" y="136" class="a t" font-size="46">STEM AGENT</text>
+<text x="58" y="172" class="si h" font-size="20">Grows a generic stem into a domain-specialist LLM agent.</text>
 <text x="58" y="210" class="m t" font-size="12.5">The agent is a directed knowledge graph of prompt and tool nodes.</text><text x="58" y="232" class="m t" font-size="12.5">A builder proposes nodes; an evaluator approves or rejects with feedback.</text><text x="58" y="254" class="m t" font-size="12.5">A traverser runs the grown graph in topological order.</text>
 <text x="58" y="280" class="mb e" font-size="12">Python  /  LLM Agents  /  Knowledge Graphs  /  OpenAI</text>
 <rect x="680" y="12" width="286" height="294" fill="#F2C14E"/>
 <text x="708" y="62" class="mb k" font-size="12">THE BIG IDEA</text>
-<text x="706" y="126" class="a k" font-size="35">AN AGENT THAT</text>
-<text x="706" y="168" class="a k" font-size="35">GROWS ITSELF.</text>
+<text x="706" y="126" class="a k" font-size="31">AN AGENT THAT</text>
+<text x="706" y="168" class="a k" font-size="31">GROWS ITSELF.</text>
 <text x="708" y="208" class="si k" font-size="17">a builder, an evaluator and a</text><text x="708" y="230" class="si k" font-size="17">traverser evolve its graph</text>
 <text x="708" y="280" class="mb k" font-size="13">open the repo →</text></g></svg>

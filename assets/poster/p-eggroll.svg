@@ -8,13 +8,13 @@
 <g class="mq"><text x="0" y="296" class="a" font-size="120" fill="#F3F0E4" fill-opacity=".045">EGGROLL × INT8 RT-DETR   EGGROLL × INT8 RT-DETR   EGGROLL × INT8 RT-DETR   EGGROLL × INT8 RT-DETR   EGGROLL × INT8 RT-DETR   EGGROLL × INT8 RT-DETR   </text></g>
 <rect x="58" y="40" width="340" height="26" rx="13" fill="#F2C14E"/>
 <text x="68" y="58" class="mb k" font-size="12">BSc thesis, Vrije Universiteit Amsterdam</text>
-<text x="56" y="136" class="a t" font-size="56">EGGROLL × INT8 RT-DETR</text>
-<text x="58" y="172" class="si h" font-size="23">Gradient-free post-tuning of a quantised object detector.</text>
+<text x="56" y="136" class="a t" font-size="46">EGGROLL × INT8 RT-DETR</text>
+<text x="58" y="172" class="si h" font-size="20">Gradient-free post-tuning of a quantised object detector.</text>
 <text x="58" y="210" class="m t" font-size="12.5">Optimises COCO mAP directly on int8 weights: no gradients, no surrogate loss.</text><text x="58" y="232" class="m t" font-size="12.5">Low-rank Evolution Strategies (EGGROLL), ported from JAX to PyTorch.</text><text x="58" y="254" class="m t" font-size="12.5">Paired arms over 5 seeds, tested with a per-image Wilcoxon test.</text>
 <text x="58" y="280" class="mb e" font-size="12">PyTorch  /  RT-DETR  /  Evolution Strategies  /  Quantisation  /  COCO</text>
 <rect x="680" y="12" width="286" height="294" fill="#F2C14E"/>
 <text x="708" y="62" class="mb k" font-size="12">THE BIG IDEA</text>
-<text x="706" y="126" class="a k" font-size="35">NO GRADIENTS.</text>
-<text x="706" y="168" class="a k" font-size="35">JUST THE SCORE.</text>
+<text x="706" y="126" class="a k" font-size="31">NO GRADIENTS.</text>
+<text x="706" y="168" class="a k" font-size="31">JUST THE SCORE.</text>
 <text x="708" y="208" class="si k" font-size="17">tunes the exact metric you</text><text x="708" y="230" class="si k" font-size="17">report (mAP), straight on int8</text><text x="708" y="252" class="si k" font-size="17">weights</text>
 <text x="708" y="280" class="mb k" font-size="13">open the repo →</text></g></svg>
