@@ -1,0 +1,50 @@
+# Generates the contribution snake + 3D skyline for every README theme, daily.
+# Output lands on the `output` branch; the README reads it from there.
+name: activity-art
+
+on:
+  schedule:
+    - cron: "0 3 * * *"   # every day, 03:00 UTC
+  workflow_dispatch:       # "Run workflow" button in the Actions tab
+  push:
+    branches: [main]
+    paths: [".github/workflows/activity.yml", "scripts/activity3d.py"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Snake (one palette per theme)
+        uses: Platane/snk@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/snake-quant.svg?color_snake=#5CF2B1&color_dots=#0E2C20,#0F5A3C,#139A64,#19C37D,#5CF2B1
+            dist/snake-lab.svg?color_snake=#D9B45B&color_dots=#12382D,#1F6B52,#2FA078,#3FD39A,#8EF0C6
+            dist/snake-matrix.svg?color_snake=#9CFFD0&color_dots=#062014,#0A4F31,#07915A,#00E68A,#9CFFD0
+            dist/snake-poster.svg?color_snake=#F2C14E&color_dots=#0D5641,#138A63,#1FE5A0,#9DF7D3,#F3F0E4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 3D skyline + themed snake backgrounds
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/activity3d.py --user "${{ github.repository_owner }}" --out dist
+          python scripts/activity3d.py --wrap-snakes --out dist
+
+      - name: Publish to the output branch
+        uses: crazy-max/ghaction-github-pages@v4
+        with:
+          target_branch: output
+          build_dir: dist
+          commit_message: "chore: refresh activity art"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
